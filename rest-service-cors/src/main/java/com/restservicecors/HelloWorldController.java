@@ -10,18 +10,20 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class HelloWorldController {
     private static final String welcoming = "Hello, %s!";
-
     private final AtomicLong idCount = new AtomicLong();
+
     @CrossOrigin(
             origins = "http://localhost:3005"
 
     )
     @GetMapping("/helloworld")
-    public HelloWorld helloworld(@RequestParam(required = false, defaultValue="World") String name) {
+    public HelloWorld helloworld(@RequestParam(required = false, defaultValue="World") String name,
+                                 @RequestParam(required = false, defaultValue="1,2,3") String[] arr) {
         System.out.println("==== get helloworld ====");
         return new HelloWorld(
                 idCount.incrementAndGet(),
-                String.format(welcoming, name)
+                String.format(welcoming, name),
+                arr
         );
     }
 }
